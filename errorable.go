@@ -13,7 +13,7 @@ func NewIntErr(f func(string) (int, error), s string) *IntErr {
 	return this
 }
 
-// create an errable slice of ints
+// create an errable slice of ints by applying function f on a slice of strings
 func NewIntErrs(f func(string) (int, error), s ...string) *IntErrs {
 	interr := make(IntErrs, len(s), len(s))
 	for i, v := range s {
