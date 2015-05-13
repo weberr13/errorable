@@ -6,11 +6,14 @@ type IntErr struct {
 }
 type IntErrs []IntErr
 
+// Create a errable int
 func NewIntErr(f func(string) (int, error), s string) *IntErr {
 	this := &IntErr{}
 	this.I, this.E = f(s)
 	return this
 }
+
+// create an errable slice of ints
 func NewIntErrs(f func(string) (int, error), s ...string) *IntErrs {
 	interr := make(IntErrs, len(s), len(s))
 	for i, v := range s {
@@ -18,12 +21,18 @@ func NewIntErrs(f func(string) (int, error), s ...string) *IntErrs {
 	}
 	return (&interr)
 }
+
+// get the value at i, ignore errors
 func (this *IntErrs) Get(i int) int {
 	return (*this)[i].I
 }
+
+// length of the slice of errable ints
 func (this *IntErrs) Len() int {
 	return (len(*this))
 }
+
+// get the first error in the slice of errable ints
 func (this *IntErrs) GetFirstErr() (err error) {
 	for _, v := range *this {
 		if nil != v.E {
